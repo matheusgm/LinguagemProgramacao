@@ -1,0 +1,15 @@
+<h1 style="color: red">MicroSiga v0</h1>
+
+<form action="/echo" method="POST">
+	<p>Usuario: <input type="text" name="usuario"></p>
+	<p>Senha: <input type="password" name="senha"></p>
+	<input type="submit" name="submit_button" value="Login">
+	<input type="submit" name="submit_button" value="Cadastrar">
+	
+	{% if "Sucesso" in msg: %}
+		<p style="color: green">{{msg}}</p>
+	{% elif "Invalido" in msg: %}
+		<p style="color: red">{{msg}}</p>
+	{% endif %}
+
+</form>
