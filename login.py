@@ -36,7 +36,7 @@ def cadastroSitu():
 	arq = open("Registro.txt","a")
 	arq.write(registro+"\n")
 	arq.close()
-	status = 'Cadastrado com Sucesso'
+	status = 'Cadastradooo com Sucessooo'
 	return redirect(url_for('index',msg = status))
 
 def pegaListaAlunos():
