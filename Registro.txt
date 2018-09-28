@@ -1,3 +1,2 @@
-assa-asas-saas
-pedro-123-5
-felipe-123-5
+{"usuario":"matheus","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}
+{"usuario":"lua","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}

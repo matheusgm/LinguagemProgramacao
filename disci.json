@@ -1,0 +1,49 @@
+[
+	{
+		"nome":"matheus",
+		"disciplinas":[
+			{
+				"nome":"Calculo",
+				"creditos":"4"
+			},
+			{
+				"nome":"Fisica",
+				"creditos":"4"
+			},
+			{
+				"nome":"Quimica",
+				"creditos":"4"
+			}
+		]
+	},
+	{
+		"nome":"luana",
+		"disciplinas":[
+			{
+				"nome":"Calculo",
+				"creditos":"4"
+			},
+			{
+				"nome":"prog",
+				"creditos":"4"
+			}
+		]
+	},
+	{
+		"nome":"claudio",
+		"disciplinas":[
+			{
+				"nome":"Circuitos Logicos",
+				"creditos":"4"
+			},
+			{
+				"nome":"Sistemas Digitais",
+				"creditos":"4"
+			},
+			{
+				"nome":"Quimica",
+				"creditos":"4"
+			}
+		]
+	}
+]

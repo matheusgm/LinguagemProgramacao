@@ -5,61 +5,117 @@
  login.py
  '''
 
-from flask import Flask, request, render_template, redirect, url_for, json
+from flask import Flask, request, render_template, redirect, url_for, json, session
 import requests
 from aluno import *
+from pdf import *
+from disciplina import *
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-	try:
-		status = request.args['msg']
-		#print("Status: "+status)
-	except(Exception):
-		#print("Erro")
-		return render_template('login.html', status = "")
-	return render_template('login.html',msg=status)
+	if request.method=='GET':
+		session.pop("usuario",None)
+	return render_template('login.html')
 
 @app.route('/cadastro')
 def cadastro():
 	return render_template('cadastro.html')
 
-@app.route('/cadastroSitu',methods=['POST'])
-def cadastroSitu():
+@app.route('/cadastrar',methods=['POST'])
+def cadastrar():
 	usuario = request.form['usuario']
 	senha = request.form['senha']
-	nota = request.form['nota']
+	dataNasci = request.form['dataNasci']
 
-	registro = usuario.lower()+"-"+senha+"-"+nota
+	aluno = Aluno("Nome",usuario,senha,"28/09/2018","email@email.com","Curso","[]")
+	status = aluno.cadastrarAluno()
+	print(status)
+	return redirect(url_for('cadastro'))#redirect(url_for('login',status = status))
 
-	arq = open("Registro.txt","a")
-	arq.write(registro+"\n")
-	arq.close()
-	status = 'Cadastradooo com Sucessooo'
-	return redirect(url_for('index',msg = status))
-
-def pegaListaAlunos():
+def buscarAluno(usuario):
+	# Tenta abrir o arquivo, se nao conseguir, ele criar e abre
 	try:
 		arq = open("Registro.txt","r")
 	except(Exception):
 		arq = open("Registro.txt","w")
 		arq.close()
 		arq = open("Registro.txt","r")
-		
-	listaAlunos = []
+	a = None
+	# Leitura do arquivo 
 	linha = arq.readline()
 	while(linha):
 		linha = linha.strip("\n")
-		linha = linha.split("-")
-		a = Aluno("Nome",linha[0],linha[1],linha[2])
-		listaAlunos.append(a)
+		json_aluno = json.loads(linha)
+		if json_aluno["usuario"] == usuario.lower():
+			a = Aluno(json_aluno["nome"],json_aluno["usuario"],json_aluno["senha"],json_aluno["dataNascimento"],json_aluno["email"],json_aluno["curso"], json_aluno["disciplinas"])
+			break
 		linha = arq.readline()
 	arq.close()
-	return listaAlunos
+	return a	
 
-@app.route("/echo", methods=['POST'])
-def echo():
+@app.route("/home")
+def home():
+	if 'usuario' in session:
+		usuario=session['usuario']
+		aluno = buscarAluno(usuario)
+		disciplinas = aluno.getDisciplinas()
+		
+		return render_template('loginValido.html',usuario = usuario, disciplinas = disciplinas)	
+	return redirect(url_for("index"))
+
+@app.route("/home/dashboard")
+def dashboard():
+	alunos = buscarListaAlunos()
+	return render_template('dashboard.html',alunos = alunos)
+
+def buscarListaAlunos():
+	alunos = []
+	arq = open("Registro.txt","r")
+	linha = arq.readline()
+	while(linha):
+		linha = linha.strip("\n")
+		json_aluno = json.loads(linha)
+		a = Aluno(json_aluno["nome"],json_aluno["usuario"],json_aluno["senha"],json_aluno["dataNascimento"],json_aluno["email"],json_aluno["curso"], json_aluno["disciplinas"])
+		alunos.append(a)
+		linha = arq.readline()
+	arq.close()
+	return alunos
+
+@app.route("/editarUsuario",methods=['POST'])
+def editarUsuario():
+	
+	usuario = request.form["btnEditar"]
+	aluno = buscarAluno(usuario)
+
+
+	return render_template("editarUsuario.html", aluno = aluno)
+
+@app.route("/excluirUsuario",methods=['POST'])
+def excluirUsuario():
+	
+	usuario = request.form["btnExcluir"]
+	excluirAluno(usuario)
+
+
+	return redirect(url_for("dashboard"))
+
+def excluirAluno(usuario):
+	alunos = buscarListaAlunos()
+	print(alunos[0].getUsuario())
+	#Limpar o arquivo
+	open('Registro.txt', 'w').close()
+	for i in alunos:
+		if i.getUsuario() == usuario:
+			print(i.getUsuario())
+			continue
+		status = i.cadastrarAluno()
+		print(status)
+	return
+
+@app.route("/login", methods=['POST','GET'])
+def login():
 
 	if request.method == 'POST':
 		if request.form['submit_button'] ==  'Login':
@@ -67,23 +123,32 @@ def echo():
 			usuario = request.form['usuario']
 			senha = request.form['senha']
 
-			listaAlunos = pegaListaAlunos()
-			#print(listaAlunos)
 			flagValido = False
-			for i,el in enumerate(listaAlunos):
-				if el.getUsuario() == usuario.lower() and el.getSenha() == senha:
-					flagValido = True
-					break
+			aluno = buscarAluno(usuario)
+			if aluno is not None:
+				flagValido = aluno.verificarLogin(usuario,senha)
+
 
 			if flagValido:
-				return render_template('loginValido.html',usuario = usuario)
+				#session['logged_in'] = True
+				session['usuario'] = usuario
+				return redirect(url_for('home'))
 			else:
 				status = 'Usuario/Senha Invalido'
-				return redirect(url_for('index',msg = status))
-
+				return render_template("login.html",status=status)
 			
 		else:
-			return redirect(url_for('cadastro'))	
-			
+			return redirect(url_for('cadastro'))
+
+@app.route("/downloadPDF", methods=['POST'])
+def downloadPDF():
+	if request.method == 'POST':
+		lista = request.form.getlist("disciplinas")
+		print(lista)
+		pdf = PDF("teste.pdf")
+		pdf.gerarPDF(lista)
+		return redirect(url_for("home"))
+
 if __name__ == "__main__":
-    app.run(debug=True)
+	app.secret_key = "session_key"
+	app.run(debug=True)

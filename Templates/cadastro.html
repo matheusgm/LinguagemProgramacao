@@ -1,8 +1,12 @@
-<h1>Cadastro do MicroSiga v0</h1>
+{% extends 'layout.html' %}
 
-<form action="/cadastroSitu" method="POST">
-	<p>Usuario: <input type="text" name="usuario"></p>
-	<p>Senha: <input type="password" name="senha"></p>
-	<p>Nota: <input type="text" name="nota"></p>
-	<input type="submit" value="Cadastrar">
-</form>
+{% block body %}
+	<h1>Cadastro do MicroSiga v0</h1>
+
+	<form action="/cadastrar" method="POST">
+		<p>Usuario: <input type="text" name="usuario"></p>
+		<p>Senha: <input type="password" name="senha"></p>
+		<p>Data Nascimento: <input type="text" name="dataNasci"></p>
+		<input type="submit" value="Cadastrar">
+	</form>
+{% endblock %}

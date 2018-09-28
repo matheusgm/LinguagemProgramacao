@@ -1,0 +1,28 @@
+
+{% extends 'layout.html' %}
+
+{% block body %}
+<form style="margin-top: 50px;" action="/editarUsuario" method="POST">
+	<div class="form-group">
+		<label for="txt">Nome:</label>
+		<input type="text" class="form-control" id="txt" value="{{aluno.getNome()}}">
+	</div>
+	<div class="form-group">
+		<label for="email">Email:</label>
+		<input type="email" class="form-control" id="email" value="{{aluno.getEmail()}}">
+	</div>
+	<div class="form-group">
+		<label for="pwd">Senha:</label>
+		<input type="password" class="form-control" id="pwd" value="{{aluno.getSenha()}}">
+	</div>
+	<div class="form-group">
+		<label for="txt">Data Nascimento:</label>
+		<input type="text" class="form-control" id="txt" value="{{aluno.getDataNascimento()}}">
+	</div>
+	<div class="form-group">
+		<label for="txt">Curso:</label>
+		<input type="text" class="form-control" id="txt" value="{{aluno.getCurso()}}">
+	</div>
+	<button type="submit" class="btn btn-default">Salvar</button>
+</form> 
+{% endblock %}
