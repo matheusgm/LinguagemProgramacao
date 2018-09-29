@@ -9,7 +9,7 @@ class Aluno:
 		self.email = email
 
 	def getUsuario(self):
-		return self.usuario
+		return self.usuario.title()
 
 	def getSenha(self):
 		return self.senha
@@ -30,7 +30,6 @@ class Aluno:
 		return self.disciplinas
 
 
-
 	def cadastrarAluno(self):
 		try:
 			
@@ -45,7 +44,7 @@ class Aluno:
 ","disciplinas":'+str(self.disciplinas)+'\
 }'
 
-			print(registro)
+			#print(registro)
 			arq = open("Registro.txt","a")
 			arq.write(registro+"\n")
 			arq.close()

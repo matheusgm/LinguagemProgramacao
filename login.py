@@ -16,8 +16,15 @@ app = Flask(__name__)
 @app.route('/')
 def index():
 	if request.method=='GET':
-		session.pop("usuario",None)
-	return render_template('login.html')
+		if "usuario" in session:
+			return redirect(url_for("home"))
+		return render_template('login.html')
+
+@app.route('/logout',methods=['POST','GET'])
+def logout():
+	session.pop("usuario",None)
+	session.pop("admin",None)
+	return redirect(url_for("login"))
 
 @app.route('/cadastro')
 def cadastro():
@@ -60,15 +67,24 @@ def home():
 	if 'usuario' in session:
 		usuario=session['usuario']
 		aluno = buscarAluno(usuario)
-		disciplinas = aluno.getDisciplinas()
+		with open('disciplinasJSON.json') as f:
+			data = json.load(f)
+		#print(disciplinas)
+		#print(type(disciplinas))
+		print(data)
+		print(aluno.getDisciplinas())
 		
-		return render_template('loginValido.html',usuario = usuario, disciplinas = disciplinas)	
+		return render_template('loginValido.html',aluno = aluno, data = data)	
 	return redirect(url_for("index"))
 
-@app.route("/home/dashboard")
+@app.route("/home/dashboard",methods=['POST','GET'])
 def dashboard():
-	alunos = buscarListaAlunos()
-	return render_template('dashboard.html',alunos = alunos)
+	if 'usuario' in session:
+		if 'admin' in session and session['admin']:
+			alunos = buscarListaAlunos()
+			return render_template('dashboard.html',alunos = alunos)
+		return redirect(url_for("home"))
+	return redirect(url_for("index"))
 
 def buscarListaAlunos():
 	alunos = []
@@ -131,7 +147,11 @@ def login():
 
 			if flagValido:
 				#session['logged_in'] = True
-				session['usuario'] = usuario
+				session['usuario'] = usuario.lower()
+				if usuario.lower() == "matheus":
+					session['admin'] = True
+				else:
+					session['admin'] = False
 				return redirect(url_for('home'))
 			else:
 				status = 'Usuario/Senha Invalido'
@@ -139,12 +159,13 @@ def login():
 			
 		else:
 			return redirect(url_for('cadastro'))
+	return render_template("login.html")
 
 @app.route("/downloadPDF", methods=['POST'])
 def downloadPDF():
 	if request.method == 'POST':
 		lista = request.form.getlist("disciplinas")
-		print(lista)
+		#print(lista)
 		pdf = PDF("teste.pdf")
 		pdf.gerarPDF(lista)
 		return redirect(url_for("home"))

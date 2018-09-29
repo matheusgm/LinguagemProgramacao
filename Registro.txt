@@ -1,2 +1,2 @@
-{"usuario":"matheus","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}
-{"usuario":"lua","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}
+{"usuario":"matheus","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":["Calculo I","Fisica I","Programacao","TeoGraf"]}
+{"usuario":"luana","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}
