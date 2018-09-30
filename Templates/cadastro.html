@@ -1,12 +1,45 @@
+
+
 {% extends 'layout.html' %}
 
 {% block body %}
-	<h1>Cadastro do MicroSiga v0</h1>
+<div style="margin-top: 30px;">
+	<h1 style="text-align: center;">Cadastro</h1>
 
-	<form action="/cadastrar" method="POST">
-		<p>Usuario: <input type="text" name="usuario"></p>
-		<p>Senha: <input type="password" name="senha"></p>
-		<p>Data Nascimento: <input type="text" name="dataNasci"></p>
-		<input type="submit" value="Cadastrar">
-	</form>
+	<form style="margin: 0 auto; width: 30%; margin-top: 20px;"  action="/cadastrar" method="POST">
+		<div class="form-group">
+			<label for="txt">Nome:</label>
+			<input type="text" class="form-control" name="nome" id="txt">
+		</div>
+		<div class="form-group">
+			<label for="txt">Usuario:</label>
+			<input type="text" class="form-control" name="usuario" id="txt">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Senha:</label>
+			<input type="password" class="form-control" name="senha" id="pwd">
+		</div>
+		<div class="form-group">
+			<label for="txt">Email:</label>
+			<input type="text" class="form-control" name="email" id="txt">
+		</div>
+		<div class="form-group">
+			<label for="txt">Curso:</label>
+			<input type="text" class="form-control" name="curso" id="txt">
+		</div>
+		<div class="form-group">
+			<label for="date">Data Nascimento:</label>
+			<input type="date" class="form-control" name="dataNasci" id="date">
+		</div>
+
+		{% if status != None: %}
+			<p><span style="color: red;">{{status}}</span></p>
+		{% endif %}
+
+		<input style="margin-left: 35%;" type="submit" class="btn btn-default" value="Cadastrar">
+
+		
+	</form> 
+</div>
+
 {% endblock %}

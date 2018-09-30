@@ -1,12 +1,10 @@
-class Aluno:
+from pessoa import *
+class Aluno(Pessoa):
 	def __init__(self, nome, usuario, senha, dataNascimento, email, curso, disciplinas):
-		self.nome = nome
-		self.usuario = usuario
-		self.senha = senha
 		self.curso = curso
 		self.disciplinas = disciplinas
-		self.dataNascimento = dataNascimento
-		self.email = email
+		Pessoa.__init__(self,nome, usuario, senha, dataNascimento, email)
+
 
 	def getUsuario(self):
 		return self.usuario.title()
@@ -33,15 +31,8 @@ class Aluno:
 	def cadastrarAluno(self):
 		try:
 			
-			print(self.email)
-			registro = '{\
-"usuario":"'+self.usuario.lower()+'\
-","senha":"'+self.senha+'\
-","nome":"'+self.nome+'\
-","curso":"'+self.curso+'\
-","email":"'+self.email+'\
-","dataNascimento":"'+self.dataNascimento+'\
-","disciplinas":'+str(self.disciplinas)+'\
+			registro = '{"usuario":"'+self.usuario.lower()+'","senha":"'+self.senha+'","nome":"'+self.nome+'\
+","curso":"'+self.curso+'","email":"'+self.email+'","dataNascimento":"'+self.dataNascimento+'","disciplinas":'+str(self.disciplinas)+'\
 }'
 
 			#print(registro)

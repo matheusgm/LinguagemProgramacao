@@ -2,7 +2,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<form style="margin-top: 50px;" action="/editarUsuario" method="POST">
+<form style="margin-top: 50px;" action="/salvarEdicaoUsuario" method="POST">
 	<div class="form-group">
 		<label for="txt">Nome:</label>
 		<input type="text" class="form-control" id="txt" value="{{aluno.getNome()}}">

@@ -9,7 +9,6 @@ from flask import Flask, request, render_template, redirect, url_for, json, sess
 import requests
 from aluno import *
 from pdf import *
-from disciplina import *
 
 app = Flask(__name__)
 
@@ -28,18 +27,41 @@ def logout():
 
 @app.route('/cadastro')
 def cadastro():
-	return render_template('cadastro.html')
+	return render_template('cadastro.html', status=None)
 
 @app.route('/cadastrar',methods=['POST'])
 def cadastrar():
+	dictPreenchido = dict()
+
+	nome = request.form['nome']
 	usuario = request.form['usuario']
 	senha = request.form['senha']
+	email = request.form['email']
+	curso = request.form['curso']
 	dataNasci = request.form['dataNasci']
 
-	aluno = Aluno("Nome",usuario,senha,"28/09/2018","email@email.com","Curso","[]")
-	status = aluno.cadastrarAluno()
-	print(status)
-	return redirect(url_for('cadastro'))#redirect(url_for('login',status = status))
+	existeCampoVazio = verificarCampoVazio([nome,usuario,senha,email,curso,dataNasci])
+	usuarioExiste = buscarAluno(usuario) != None
+
+	if existeCampoVazio == False:
+		if usuarioExiste:
+			return render_template('cadastro.html',status = "Usuario já cadastrado!")
+		elif len(senha) < 6:
+			return render_template('cadastro.html',status = "Senha muito curta!")
+		elif "@" not in email:
+			return render_template('cadastro.html',status = "Email incorreto!")
+		else:
+			aluno = Aluno(nome,usuario,senha,dataNasci,email,curso,"[]")
+			status = aluno.cadastrarAluno()
+			print(status)
+			return redirect(url_for('login'))
+	return render_template('cadastro.html',status = "Algum campo não foi preenchido corretamente!")
+
+def verificarCampoVazio(listaCampos):
+	for i in listaCampos:
+		if i == None or i.strip(" ") == "":
+			return True
+	return False
 
 def buscarAluno(usuario):
 	# Tenta abrir o arquivo, se nao conseguir, ele criar e abre
@@ -66,12 +88,14 @@ def buscarAluno(usuario):
 def home():
 	if 'usuario' in session:
 		usuario=session['usuario']
+		print(usuario)
 		aluno = buscarAluno(usuario)
 		with open('disciplinasJSON.json') as f:
 			data = json.load(f)
 		#print(disciplinas)
 		#print(type(disciplinas))
 		print(data)
+		print(aluno)
 		print(aluno.getDisciplinas())
 		
 		return render_template('loginValido.html',aluno = aluno, data = data)	
@@ -98,6 +122,13 @@ def buscarListaAlunos():
 		linha = arq.readline()
 	arq.close()
 	return alunos
+
+@app.route("/salvarEdicaoUsuario",methods=['POST'])
+def salvarEdicaoUsuario():
+
+
+
+	return redirect(url_for("dashboard"))
 
 @app.route("/editarUsuario",methods=['POST'])
 def editarUsuario():

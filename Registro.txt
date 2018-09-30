@@ -1,2 +1,2 @@
-{"usuario":"matheus","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":["Calculo I","Fisica I","Programacao","TeoGraf"]}
-{"usuario":"luana","senha":"123","nome":"Nome","curso":"Curso","email":"email@email.com","dataNascimento":"28/09/2018","disciplinas":[]}
+{"usuario":"matheus","senha":"123","nome":"Matheus","curso":"Engenharia da Computação","email":"math.moura@poli.ufrj.br","dataNascimento":"1997-01-06","disciplinas":[]}
+{"usuario":"luana","senha":"123456","nome":"Luana","curso":"Engenharia de Produção","email":"luana@email.com","dataNascimento":"2000-06-18","disciplinas":[]}
