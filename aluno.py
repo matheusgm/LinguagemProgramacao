@@ -9,18 +9,6 @@ class Aluno(Pessoa):
 	def getUsuario(self):
 		return self.usuario.title()
 
-	def getSenha(self):
-		return self.senha
-
-	def getNome(self):
-		return self.nome
-
-	def getDataNascimento(self):
-		return self.dataNascimento
-
-	def getEmail(self):
-		return self.email
-
 	def getCurso(self):
 		return self.curso
 
