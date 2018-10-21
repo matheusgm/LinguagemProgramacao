@@ -7,7 +7,7 @@ class Pessoa:
 		self.email = email
 
 	def getUsuario(self):
-		return self.usuario.title()
+		return self.usuario
 
 	def getSenha(self):
 		return self.senha

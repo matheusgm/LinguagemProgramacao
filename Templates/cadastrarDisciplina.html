@@ -1,0 +1,59 @@
+
+
+{% extends 'layout.html' %}
+
+{% block body %}
+<div style="margin-top: 30px;">
+	<h1 style="text-align: center;">Cadastro de Disciplinas</h1>
+
+	<form style="margin: 0 auto; width: 50%; margin-top: 20px;"  action="/home/cadastrarDisciplina" method="POST">
+		<div class="form-group">
+				<label for="txt">Nome:</label>
+				<input type="text" class="form-control" name="nome" id="txt">
+			</div>
+
+		<div style=" display: inline-block;">
+			<div style="margin-right: 5px; width: 20%; float: left;" class="form-group">
+				<label for="txt1">Codigo:</label>
+				<input type="text" class="form-control" name="codigo" id="txt1">
+			</div>
+			<div style=" margin-right: 5px; width: 15%; float: left;" class="form-group">
+				<label for="txt2">Creditos:</label>
+				<input type="text" class="form-control" name="creditos" id="txt2">
+			</div>
+			<div style="margin-right: 5px; width: 15%; float: left;" class="form-group">
+				<label for="txt3">CH Teorica:</label>
+				<input  type="text" class="form-control" name="cargaHorariaTeoria" id="txt3">
+			</div>
+			<div style="margin-right: 5px; width: 15%; float: left;" class="form-group">
+				<label for="txt4">CH Pratica:</label>
+				<input type="text" class="form-control" name="cargaHorariaPratica" id="txt4">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="txtArea1">Cursos:</label>
+			<small style="color: grey;">(Separado por Virgulas)</small>
+			<textarea style="resize: none;" class="form-control" id="txtArea1" name="cursos" rows="1"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="txtArea2">Objetivo:</label>
+			<textarea style="resize: none;" class="form-control" id="txtArea2" name="objetivo" rows="2"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="txtArea3">Ementa:</label>
+			<textarea style="resize: none;" class="form-control" id="txtArea3" name="ementa" rows="3"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="txtArea4">Bibliografias:</label>
+			<small style="color: grey;">(Separadas por ENTER)</small>
+			<textarea style="resize: none;" class="form-control" id="txtArea4" name="bibliografia" rows="3"></textarea>
+		</div>
+
+		<input style="margin-left: 35%; margin-bottom: 10%;" type="submit" class="btn btn-default" value="Cadastrar">
+
+		
+	</form> 
+</div>
+
+{% endblock %}

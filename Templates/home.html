@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+	<div>
+		<h1 style="display: inline-flex; margin-top: 2%;">Bem Vindo {{aluno.getUsuario()}}</h1>
+
+		<form style=" float: right; display: inline-flex; margin-top: 2%; " action="/logout" method="POST">
+			<input type="submit" class="btn btn-default" name="btnLogout" value="Logout">
+		</form>
+
+		{% if session["usuario"].lower() == "matheus": %}
+			<form style=" float: right; display: inline-flex; margin-top: 2%; " action="/home/dashboard" method="POST">
+				<input type="submit" class="btn btn-default" name="btnDashboard" value="Dashbord">
+			</form>
+		{% endif %}
+
+		<!-- <form style="margin: 0 auto; width: 50%;" action="/buscarDisciplinas" method="POST" >
+
+			<div style="text-align: center; " class="form-inline">
+				<select class="form-control" id="exampleFormControlSelect1">
+					<option value="" selected hidden>Curso</option>
+					<option>Engenharia de Computacao</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+				<input type="submit" class="btn btn-default" name="buscarDisciplinas" value="Buscar">
+			</div>
+		</form> -->
+
+		<form style="margin: 0 auto;"  action="/formHome" method="POST">
+			{% with disciplinas = aluno.getDisciplinas() %}
+			{% for i in disciplinas: %}
+				<div style="display:inline-block; width: 24%; padding-left: 0px;padding-right: 0px;" class="container">
+				{% if i in data: %}
+					<input style="margin-left: 10%;" type="checkbox"  name="disciplinas" value={{data[i]["codigo"]}}>
+					<h4 style="display:inline-block; cursor: pointer;" data-toggle="modal" data-target="#myModal{{disciplinas.index(i)}}" >{{i}}</h4>
+					<!-- Modal -->
+					<div id="myModal{{disciplinas.index(i)}}" class="modal fade" role="dialog">
+						<div class="modal-dialog">
+			
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">{{i}}</h4>
+								</div>
+								<div style="max-height: calc(100vh - 210px); overflow-y: auto;" class="modal-body">
+									<p><b>Codigo:</b> {{data[i]["codigo"]}}</p>
+									<p><b>CargaHoraria:</b></p> 
+										<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>T</b> = {{data[i]["cargaHoraria"]["T"]}}</p>
+										<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>P</b> = {{data[i]["cargaHoraria"]["P"]}}</p>
+									<p><b>Creditos:</b> {{data[i]["creditos"]}}</p>
+									<p><b>Cursos:</b></p>
+									{% for info in data[i]["cursos"]: %}
+										<!--{% if (loop.index-1) != 0 and (loop.index-1) % 2 == 0: %}
+											<br>
+										{% endif %}-->
+										<p>&nbsp;&nbsp;&nbsp;&nbsp;{{info}}</p>
+									{% endfor %}
+									<p><b>Objetivo:</b> {{data[i]["objetivo"]}}</p>
+									<p><b>Ementa:</b> {{data[i]["ementa"]}}</p>
+									<p><b>Bibliografia:</b> </p>
+									{% for info in data[i]["bibliografias"]: %}
+										<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{loop.index}})</b> {{info}}</p>
+										
+									{% endfor %}
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+
+						</div>
+				
+					</div>
+				{% else: %}
+					<input style="margin-left: 10%;" type="checkbox"  name="disciplinasDisable" value={{i}} disabled="true">
+					<h4 style="color: grey; display:inline-block; cursor: not-allowed;" title='Disciplina não cadastrada' >{{i}}</h4>
+				{% endif %}
+				</div>
+			{% endfor %}
+			{% endwith %}	
+			
+			<div style="display: block;">
+				<input type="submit" class="btn btn-default" name="submit_button" value="Gerar PDF">
+				<input type="submit" class="btn btn-default" name="submit_button" value="Cadastrar Disciplina">
+			</div>
+			
+		</form>
+		
+	</div>
+
+{% endblock %}

@@ -31,6 +31,11 @@
 			<label for="date">Data Nascimento:</label>
 			<input type="date" class="form-control" name="dataNasci" id="date">
 		</div>
+		<div class="form-group">
+			<label for="txtArea1">Disciplinas:</label>
+			<small style="color: grey;">(Separado por Virgulas)</small>
+			<textarea style="resize: none;" class="form-control" id="txtArea1" name="disciplinas" rows="1"></textarea>
+		</div>
 
 		{% if status != None: %}
 			<p><span style="color: red;">{{status}}</span></p>
