@@ -44,13 +44,13 @@ class PDF:
 		doc = SimpleDocTemplate(self.nome, pagesize = landscape(A4), rightMargin=0, leftMargin=0, topMargin=30, bottomMargin=0)
 		elements = []
 		styles=getSampleStyleSheet()
-
-		P = Paragraph('''
-      		<para align=center spaceb=3>The <b>ReportLab Left
-       		<font color=red>Logo</font></b>
-       		Image</para>''',
-       styles["BodyText"])
-
+		
+		#P = Paragraph('''
+      	#	<para align=center spaceb=3>The <b>ReportLab Left
+       	#	<font color=red>Logo</font></b>
+       	#	Image</para>''',
+      	#styles["BodyText"])
+      	
 		for i in Disciplinas:
 			CHT = str(Disciplinas[i]["cargaHoraria"]["T"])
 			CHP = str(Disciplinas[i]["cargaHoraria"]["P"])

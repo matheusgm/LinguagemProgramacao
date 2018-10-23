@@ -20,7 +20,7 @@ class Aluno(Pessoa):
 		try:
 			
 			registro = '{"usuario":"'+self.usuario.lower()+'","senha":"'+self.senha+'","nome":"'+self.nome+'\
-","curso":"'+self.curso+'","email":"'+self.email+'","dataNascimento":"'+self.dataNascimento+'","disciplinas":'+str(self.disciplinas)+'\
+","curso":"'+self.curso+'","email":"'+self.email+'","dataNascimento":"'+self.dataNascimento+'","disciplinas":'+str(self.disciplinas).replace("'",'"')+'\
 }'
 
 			#print(registro)

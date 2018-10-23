@@ -1,4 +1,2 @@
-{"usuario":"matheus","senha":"123","nome":"Matheus","curso":"Engenharia da Computação","email":"math.moura@poli.ufrj.br","dataNascimento":"1997-01-06","disciplinas":["Calculo I","Calculo II","Calculo III", "Calculo IV","Fisica I", "Fisica II", "Fisica III", "Fisica IV","Programacao"]}
+{"usuario":"matheus","senha":"123","nome":"Matheus","curso":"Engenharia da Computação","email":"math.moura@poli.ufrj.br","dataNascimento":"1997-01-06","disciplinas":["Calculo I", "Calculo II", "Calculo III", "Calculo IV", "Fisica I", "Fisica II", "Fisica III", "Fisica IV", "Programacao"]}
 {"usuario":"luana","senha":"123456","nome":"luana","curso":"Engenharia de Produção","email":"luana@email.com","dataNascimento":"2000-06-18","disciplinas":[]}
-{"usuario":"testando","senha":"123456","nome":"testando","curso":"ECI","email":"testando@hotmail.com","dataNascimento":"2018-10-21","disciplinas":["Calculo I", "Calculo II", "Programacao", "Fisica II"]}
-{"usuario":"teste2","senha":"123456","nome":"teste2","curso":"ECI","email":"teste@email.com","dataNascimento":"2018-10-21","disciplinas":["ECI", "ECA", "Quimica", "Fisica", "Civil", "Producao"]}
