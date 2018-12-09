@@ -87,10 +87,34 @@
 			<div style="display: block;">
 				<input type="submit" class="btn btn-default" name="submit_button" value="Gerar PDF">
 				<input type="submit" class="btn btn-default" name="submit_button" value="Cadastrar Disciplina">
+				<input type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalGrafico" value="Grafico">
+			</div>
+
+			<!-- Modal -->
+			<div  id="myModalGrafico" class="modal fade" role="dialog">
+				<div style="width: 900px; height: 500px;" class="modal-dialog">
+	
+					<!-- Modal content-->
+					<div  class="modal-content">
+						<div class="modal-body">
+							<img style="width: 100%; height: 100%;" src="/graficoPDFgerado.png">
+						</div>
+					</div>
+
+				</div>
+		
 			</div>
 			
 		</form>
+
+		<form style="margin-top: 20px;" action="/calculoFaculdade" method="POST">
+			<h3 style="color: black;">Digite o numero de credito por periodo, para saber qual o tempo minimo para terminar as disciplinas obrigatorias</h3>
+			<input type="text" name="input_credito">
+			<input type="submit" class="btn btn-default" name="submit_button" value="Calcular">
+			<h6 style="color: grey;">Input tem que ser um numero entre 6 e 30</h6>
+		</form>
 		
 	</div>
+	
 
 {% endblock %}

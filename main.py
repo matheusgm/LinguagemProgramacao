@@ -1,11 +1,11 @@
 '''
- cd C:\\Users\\Matheus\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\venv\\Scripts
+ cd C:\\Users\\mathm\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\venv\\Scripts
  activate
- cd C:\\Users\\Matheus\\Desktop\\UFRJ\\LinguagemProgramacao\\MicroSiga
+ cd C:\\Users\\mathm\\Desktop\\MicroSiga
  main.py
  '''
 
-from flask import Flask, request, render_template, redirect, url_for, json, session, send_file
+from flask import Flask, request, render_template, redirect, url_for, json, session, send_file, make_response
 import requests
 from aluno import *
 from pdf import *
@@ -264,13 +264,151 @@ def downloadPDF(): # Rota para realizar a criação e o download do PDF
 				for i in disci:
 					if disci[i]["codigo"] in lista:
 						materia[i] = disci[i]
-
+						
+				incrementarPDFbaixados(materia)
 				pdf = PDF("teste.pdf") # Cria o PDF
 				pdf.gerarPDF(materia) #Gera o PDF das disciplinas
 
 				return send_file('teste.pdf', as_attachment=True)
 			return redirect(url_for("home")) # Redireciona para home
 		return redirect(url_for('index'))
+
+def incrementarPDFbaixados(materia):
+	data = buscarInfoGrafico()
+
+	for i in materia:
+		if i in data:
+			data[i]["quantidade"] = data[i]["quantidade"] + 1
+		else:
+			data[i] = {"quantidade":1}
+
+	with open('infoGraficoPDF.json','w') as f:
+		res = json.dumps(data) 
+		f.write(res)
+
+
+def buscarInfoGrafico(): 
+	try:
+		with open('infoGraficoPDF.json', encoding='utf-8') as f:
+			data = json.load(f) 
+	except(Exception):
+		arq = open("infoGraficoPDF.json","w")
+		arq.write("{}")
+		arq.close()
+		with open('infoGraficoPDF.json', encoding='utf-8') as f:
+			data = json.load(f) 
+
+	return data
+
+@app.route("/graficoPDFgerado.png")
+def graficoPDFgerado():
+	import datetime
+	from io import BytesIO
+	import random
+	import numpy as np
+
+	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+	from matplotlib.figure import Figure
+	from matplotlib.dates import DateFormatter
+
+	disciplinas = []
+	performance = []
+	if 'usuario' in session: # Verifica se existe usuario logado na sessão
+		usuario=session['usuario']
+		aluno = buscarAluno(usuario)
+
+		disciplinas = aluno.getDisciplinas()
+		infoGrafico = buscarInfoGrafico()
+
+		print(disciplinas)
+		#print(infoGrafico)
+		for i in disciplinas:
+			if i in infoGrafico:
+				performance.append(int(infoGrafico[i]["quantidade"]))
+			else:
+				performance.append(0)
+
+
+	fig=Figure(figsize=(10, 6))
+
+	ax = fig.subplots()
+	y_pos = np.arange(len(disciplinas))
+	
+	ax.barh(y_pos, performance, align='center',
+        color='green', ecolor='black')
+	ax.set_yticks(y_pos)
+	ax.set_yticklabels(disciplinas)
+	ax.invert_yaxis()  # labels read top-to-bottom
+	ax.set_xlabel('Quantidade')
+	ax.set_title('Quantos PDF foram gerados?')
+
+	canvas=FigureCanvas(fig)
+	png_output = BytesIO()
+	canvas.print_png(png_output)
+	response=make_response(png_output.getvalue())
+	response.headers['Content-Type'] = 'image/png'
+	return response
+
+@app.route("/calculoFaculdade",methods=['POST'])
+def calculoFaculdade():
+	if request.form['submit_button'] ==  'Calcular':
+		try:
+			valor = int(request.form['input_credito'])
+			if valor > 30 or valor < 6:
+				print("Erro")
+			else:
+				print("Sucesso")
+				if 'usuario' in session: # Verifica se existe usuario logado na sessão
+					usuario=session['usuario']
+					aluno = buscarAluno(usuario)
+
+					disciplinas = aluno.getDisciplinas()
+					#print(disciplinas)
+					with open('engComputacao.json',encoding='utf-8') as f:
+						data = json.load(f)
+					facul,cred = calcularPeriodoMinimo(disciplinas,valor)
+					return render_template("calculoFaculdade.html",facul=facul, data=data,cred=cred)
+		except(Exception):
+			print("Erro2")
+		return redirect(url_for("home"))
+
+def calcularPeriodoMinimo(disciplinas,numCreditos):
+	with open('engComputacao.json',encoding='utf-8') as f:
+		data = json.load(f)
+	#print(len(data))
+	cod = []
+	for i in data:
+		if data[i]["nome"] in disciplinas:
+			cod.append(i)
+	for i in cod:
+		if i in data:
+			data.pop(i)
+	facul = []
+	cred = []
+	while(len(data) > 0):
+		cred_total = 0
+		periodo = []
+		for i in data:
+			temRequisito = False
+			if cred_total >= numCreditos:
+				break
+			l = (data[i]["requisito"]).replace("']","").replace("['","").split("','")
+			for j in l:
+				if j in data:
+					temRequisito = True
+					break
+			if temRequisito:
+				continue
+			c = int(data[i]["credito"])
+			if (c + cred_total) <= numCreditos:
+				periodo.append(i)
+				cred_total+=c
+		for i in periodo:
+			data.pop(i)
+		#periodo.append(cred_total)
+		facul.append(periodo)
+		cred.append(cred_total)
+	return facul,cred
 
 if __name__ == "__main__":
 	app.secret_key = "session_key"

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div style="margin: 0 auto;">
+	{% for i in facul %}
+		<div style=" padding: 50px; display: inline-block;">
+			<h1>Periodo {{facul.index(i)+1}}</h1>
+			{% for j in i %}
+				<h5>{{data[j]["nome"]}} - {{data[j]["credito"]}} creditos</h5>
+			{% endfor %}
+			<h3>Total Credito: {{cred[facul.index(i)]}}</h3>
+		</div>
+	{% endfor %}
+	
+</div>
+
+{% endblock %}

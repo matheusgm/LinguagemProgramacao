@@ -1,0 +1,227 @@
+{
+	"COS110":{
+		"nome":"Algoritmos e Programcao",
+		"credito":"5",
+		"requisito":"[]"
+	},
+	"COS111":{
+		"nome":"Introd Eng Comput e Informação",
+		"credito":"2",
+		"requisito":"[]"
+	},
+	"EEL280":{
+		"nome":"Circuitos Logicos",
+		"credito":"5",
+		"requisito":"[]"
+	},
+	"FIS111":{
+		"nome":"Fisica Experimental I",
+		"credito":"1",
+		"requisito":"[]"
+	},
+	"FIT112":{
+		"nome":"Fisica I",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"MAC118":{
+		"nome":"Calculo I",
+		"credito":"6",
+		"requisito":"[]"
+	},
+	"EEL480":{
+		"nome":"Sistemas Digitais",
+		"credito":"5",
+		"requisito":"['EEL280']"
+	},
+	"EEL670":{
+		"nome":"Linguagens de Programacao",
+		"credito":"5",
+		"requisito":"[]"
+	},
+	"FIS121":{
+		"nome":"Fisica Experimental II",
+		"credito":"1",
+		"requisito":"['FIS111','FIT112']"
+	},
+	"FIT122":{
+		"nome":"Fisica II",
+		"credito":"4",
+		"requisito":"['FIT112','MAC118']"
+	},
+	"MAC128":{
+		"nome":"Calculo II",
+		"credito":"4",
+		"requisito":"['MAC118']"
+	},
+	"MAE125":{
+		"nome":"Algebra Linear II",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COS231":{
+		"nome":"Estruturas de Dados",
+		"credito":"5",
+		"requisito":"['COS110','MAE125']"
+	},
+	"EEL580":{
+		"nome":"Arquitetura de Computadores",
+		"credito":"5",
+		"requisito":"[]"
+	},
+	"EEL881":{
+		"nome":"Teoria da Computacao",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"FIM230":{
+		"nome":"Fisica III",
+		"credito":"4",
+		"requisito":"['FIT112','MAC128']"
+	},
+	"FIN231":{
+		"nome":"Fisica Experimental III",
+		"credito":"1",
+		"requisito":"['FIS121']"
+	},
+	"MAC238":{
+		"nome":"Calculo III",
+		"credito":"4",
+		"requisito":"['MAC128']"
+	},
+	"COE241":{
+		"nome":"Estatística e Mod. Probabilist",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COS242":{
+		"nome":"Teorias dos Grafos",
+		"credito":"4",
+		"requisito":"['COS231']"
+	},
+	"COS471":{
+		"nome":"Computadores e Sociedade",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"FIM240":{
+		"nome":"Fisica IV",
+		"credito":"4",
+		"requisito":"['FIM230']"
+	},
+	"FIN241":{
+		"nome":"Fisica Experimental IV",
+		"credito":"1",
+		"requisito":"['FIM230','FIN231']"
+	},
+	"IQG111":{
+		"nome":"Quimica EE",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"MAC248":{
+		"nome":"Calculo IV",
+		"credito":"4",
+		"requisito":"['MAC128']"
+	},
+	"COC473":{
+		"nome":"Algebra Linear Computacional",
+		"credito":"4",
+		"requisito":"['MAC238','MAE125']"
+	},
+	"COS351":{
+		"nome":"Lógica Matemática",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"EEL770":{
+		"nome":"Sistemas Operacionais",
+		"credito":"5",
+		"requisito":"[]"
+	},
+	"EEL871":{
+		"nome":"Banco de Dados",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"EEL878":{
+		"nome":"Redes de Computadores I",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"IQG112":{
+		"nome":"Quimica Experimental EE",
+		"credito":"2",
+		"requisito":"[]"
+	},
+	"COC361":{
+		"nome":"Inteligência Computacional",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COE363":{
+		"nome":"Telecomunicações",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COS360":{
+		"nome":"Otimização",
+		"credito":"4",
+		"requisito":"['COS110','MAC238','MAE125']"
+	},
+	"EEL873":{
+		"nome":"Engenharia de Software",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"EEL879":{
+		"nome":"Redes de Computadores II",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"EEL882":{
+		"nome":"Computacao Grafica",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COC472":{
+		"nome":"Computação de Alto Desempenho",
+		"credito":"3",
+		"requisito":"[]"
+	},
+	"COP232":{
+		"nome":"Gestão de Conhecimento I",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COS470":{
+		"nome":"Sistemas Distribuídos",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"EEL418":{
+		"nome":"Programação Avançada",
+		"credito":"4",
+		"requisito":"['COS231','EEL670']"
+	},
+	"COP364":{
+		"nome":"Empreendedorismo I",
+		"credito":"4",
+		"requisito":"[]"
+	},
+	"COS480":{
+		"nome":"Construção de Bancos de Dados",
+		"credito":"4",
+		"requisito":"['EEL871']"
+	},
+	"COS482":{
+		"nome":"Qualidade de Software",
+		"credito":"4",
+		"requisito":"['EEL873']"
+	},
+	"EEWX00":{
+		"nome":"Projeto de Graduação",
+		"credito":"4",
+		"requisito":"[]"
+	}
+}
